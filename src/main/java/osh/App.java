@@ -1,13 +1,18 @@
 package osh;
 
-/**
- * Hello world!
- *
- */
+import java.io.*;
+
+import osh.Read;
+
 public class App 
 {
-    public static void main( String[] args )
+    
+    static final String csvFilePath = "D:/Programming/Osh/Interview-task-data-osh.csv";
+    
+
+    public static void main( String[] args ) throws IOException
     {
-        System.out.println( "Hello World!" );
+        Read.readCSVFile(csvFilePath);
+       
     }
 }
