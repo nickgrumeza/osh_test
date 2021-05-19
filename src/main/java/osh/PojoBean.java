@@ -2,7 +2,7 @@ package osh;
 
 import java.lang.String;
 
-public class Data {
+public class PojoBean{
     private String a;
     private String b;
     private String c;
@@ -10,14 +10,15 @@ public class Data {
     private String e;
     private String f;
     private String g;
-    private Boolean h;
-    private Boolean i;
+    private String h;
+    private String i;
     private String j;
+    private String[] arr;
 
-    public Data(){}
+    public PojoBean() {}
     
-    public Data(String a, String b, String c, String d, String e, String f, 
-            String g, Boolean h, Boolean i, String j)   {
+    public PojoBean(String a, String b, String c, String d, String e, String f, 
+            String g, String h, String i, String j)   {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -38,6 +39,7 @@ public class Data {
     }
     
     public String getB(){
+       
         return b;
     }
     public void setB(String b){
@@ -79,17 +81,17 @@ public class Data {
         this.g = g;
     }
 
-    public Boolean getH(){
+    public String getH(){
         return h;
     }
-    public void setH(Boolean h){
+    public void setH(String h){
         this.h = h;
     }
 
-    public Boolean getI(){
+    public String getI(){
         return i;
     }
-    public void setI(Boolean i){
+    public void setI(String i){
         this.i = i;
     }
 
@@ -99,4 +101,10 @@ public class Data {
     public void setJ(String j){
         this.j = j;
     }
+
+    @Override
+    public String toString(){
+        return String.format("a=%s, b=%s, c=%s, d=%s, e=%s, f=%s, g=%s, h=%s, i=%s, j=%s",
+        getA(), getB(), getC(), getD(), getE(), getF(), getG(), getH(), getI(), getJ());
+    }   
 }

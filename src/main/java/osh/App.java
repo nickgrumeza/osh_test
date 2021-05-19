@@ -1,18 +1,23 @@
 package osh;
 
 import java.io.*;
+import java.sql.SQLException;
 
-import osh.Read;
 
 public class App 
 {
     
-    static final String csvFilePath = "D:/Programming/Osh/Interview-task-data-osh.csv";
     
 
-    public static void main( String[] args ) throws IOException
+    public static void main( String[] args ) throws IOException, SQLException
     {
-        Read.readCSVFile(csvFilePath);
-       
+        Read.openConnection();
+        Read.createTable();
+        Read.readAndInsert();
+        Read.testDb();
+        Read.closeConnection();
+        System.out.println("Records recieved = " + Read.recordsRecieved);
+        System.out.println("Records successful = " + Read.recordsSuccussful);
+        System.out.println("Records failed = " + Read.recordsFailed);
     }
 }
