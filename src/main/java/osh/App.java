@@ -14,10 +14,10 @@ public class App
         Read.openConnection();
         Read.createTable();
         Read.readAndInsert();
-        Read.testDb();
+        // Read.testDb();
         Read.closeConnection();
-        System.out.println("Records recieved = " + Read.recordsRecieved);
-        System.out.println("Records successful = " + Read.recordsSuccussful);
-        System.out.println("Records failed = " + Read.recordsFailed);
+        System.out.println(Read.recordsRecieved + " of records received");
+        System.out.println(Read.recordsSuccussful + " of records successful");
+        System.out.println(Read.recordsFailed + " of records failed");
     }
 }

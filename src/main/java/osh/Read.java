@@ -51,11 +51,13 @@ public class Read{
         }
     }
 
-    public static void readAndInsert() throws SQLException 
-    {          
+    public static void readAndInsert() throws SQLException, IOException
+    {                 
+        int expectedColumns = 10; 
+        CsvPreference pref = CsvPreference.STANDARD_PREFERENCE;
+        SkipBadColumnsTokenizer tokenizer = new SkipBadColumnsTokenizer(new FileReader(csvFilePath), pref, expectedColumns);
         PreparedStatement pstatement = con.prepareStatement("INSERT INTO X(A,B,C,D,E,F,G,H,I,J) "
                     + "VALUES(?,?,?,?,?,?,?,?,?,?);");
-
         CellProcessor[] processors = new CellProcessor[]{
             new Optional(),
             new Optional(),
@@ -69,13 +71,14 @@ public class Read{
             new Optional()
         };    
       
-        try(ICsvBeanReader beanReader = new CsvBeanReader(new FileReader(csvFilePath), 
+        try(ICsvBeanReader beanReader = new CsvBeanReader(tokenizer, 
         CsvPreference.STANDARD_PREFERENCE);){
             final String[] headers = beanReader.getHeader(true);
                         
             PojoBean beanData = null;
-            while ((beanData = beanReader.read(PojoBean.class, headers, processors)) != null) {
-                if (beanReader.getLineNumber() <= 11){
+            while ((beanData = beanReader.read(PojoBean.class, headers, processors)) != null) {                
+                    // System.out.print(String.format("lineNo=%s, rowNo=%s, beanData=%s", beanReader.getLineNumber(),
+                    //     beanReader.getRowNumber(), beanData));
                     if ((beanData.getA() != null) && (beanData.getB() != null) && (beanData.getC() != null)
                             && (beanData.getD() != null) && (beanData.getE() != null) && (beanData.getF() != null) 
                             && (beanData.getG() != null) && (beanData.getH() != null) && (beanData.getI() != null) 
@@ -96,11 +99,9 @@ public class Read{
                     } else {
                         recordsFailed++;
                     }
-                } else {
-                    break;
-                }
                 recordsRecieved++;
             }
+            System.out.println(String.format("Ignored lines: %s", tokenizer.getIgnoredLines()));
             beanReader.close();
         } catch (FileNotFoundException ex) {
             System.err.println("Could not find the CSV file: " + ex);

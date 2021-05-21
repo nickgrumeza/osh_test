@@ -1,6 +1,8 @@
 package osh;
 
 import java.lang.String;
+import java.io.IOException;
+import java.util.List;
 
 public class PojoBean{
     private String a;
@@ -13,7 +15,6 @@ public class PojoBean{
     private String h;
     private String i;
     private String j;
-    private String[] arr;
 
     public PojoBean() {}
     
