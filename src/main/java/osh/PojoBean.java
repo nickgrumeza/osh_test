@@ -1,8 +1,6 @@
 package osh;
 
 import java.lang.String;
-import java.io.IOException;
-import java.util.List;
 
 public class PojoBean{
     private String a;

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class SkipBadColumnsTokenizer extends Tokenizer{   
     private final int expectedColumns;
 
-    private final List<Integer> ignoredLines = new ArrayList<>();
+    private final List<String> ignoredData = new ArrayList<>();
 
     public SkipBadColumnsTokenizer(Reader reader, 
             CsvPreference preferences, int expectedColumns) {
@@ -23,15 +23,12 @@ public class SkipBadColumnsTokenizer extends Tokenizer{
         boolean moreInputExists;
         while ((moreInputExists = super.readColumns(columns)) && 
             columns.size() != this.expectedColumns){
-            System.out.println(String.format("Ignoring line %s with %d columns: %s", getLineNumber(), columns.size(), getUntokenizedRow()));
-            ignoredLines.add(getLineNumber());
-        }
-
+            ignoredData.add(getUntokenizedRow());
+        }        
         return moreInputExists;
-
     }
 
-    public List<Integer> getIgnoredLines(){
-        return this.ignoredLines;
+    public List<String> getIgnoredData(){
+        return this.ignoredData;
     }
 }
